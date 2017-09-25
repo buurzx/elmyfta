@@ -1,0 +1,38 @@
+# for development only
+
+version: '3'
+
+services:
+  webpacker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec bin/webpack-dev-server --host 0.0.0.0
+    ports:
+      - "8080:8080"
+  web:
+    env_file:
+      - '.env.docker.local'
+    depends_on:
+      - postgres
+      - webpacker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rails s -b '0.0.0.0'
+    volumes:
+      - .:/myfta
+    links:
+      - postgres:postgres.local
+    ports:
+      - '3000:3000'
+
+  postgres:
+    env_file:
+      - '.env.docker.local'
+    image: postgres:9.6-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+
+volumes:
+  database:
