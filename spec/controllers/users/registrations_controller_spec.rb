@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+# rubocop: disable Metrics/BlockLength
+
 RSpec.describe Users::RegistrationsController, type: :controller do
   describe '#create' do
     let!(:user) { build(:user, email: 'tt@test.tt') }
@@ -9,27 +12,27 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
 
     context 'when create user and organization' do
-      it 'should create user' do
+      it 'creates user' do
         expect do
           post :create, params: { user: user.attributes.merge(inn: '1231231231',
                                                               org_name: 'Vasya') }
         end.to change(User, :count).by 1
       end
 
-      it 'should create user with password' do
+      it 'creates user with password' do
         post :create, params: { user: user.attributes.merge(inn: '1231231231',
-                                                              org_name: 'Vasya') }
+                                                            org_name: 'Vasya') }
         expect(User.last.encrypted_password.blank?).to be_falsey
       end
 
-      it 'should create organization if it\'s not exists' do
+      it 'creates organization if it\'s not exists' do
         expect do
           post :create, params: { user: user.attributes.merge(inn: '1231231231',
                                                               org_name: 'Vasya') }
         end.to change(Organization, :count).by 1
       end
 
-      it 'should create organization if it\'s not exists and mark as contact' do
+      it 'creates organization if it\'s not exists and mark as contact' do
         expect do
           post :create, params: { user: user.attributes.merge(inn: '1231231231',
                                                               org_name: 'Vasya') }
@@ -86,7 +89,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     context 'when create user form products new' do
       let!(:org) { build(:organization) }
 
-       it 'should create user' do
+      it 'creates user' do
         expect do
           post :create, params: { user: org.attributes.merge(inn: '1231231231',
                                                              org_name: 'Vasya',
@@ -99,7 +102,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end.to change(User, :count).by 1
       end
 
-       it 'creates user' do
+      it 'creates user' do
         post :create, params: { user: org.attributes.merge(inn: '12312231',
                                                            org_name: 'Vasya',
                                                            phone: '79999999999',
@@ -109,7 +112,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
                                                            email: 'qwe@wew.we',
                                                            site: 'reeq.re') }
         expect(response.status).to eq 422
-
       end
     end
   end

@@ -1,0 +1,29 @@
+h3.section-title
+  - if params[:q].blank? && Product.all_count.positive?
+    b = Product.all_count
+    |  Наименований
+  - else
+    b = @products.count
+    |  Наименований
+.item-listing
+  - if @products.empty?
+    .list-item
+      .list-item-main-info
+        p К сожалению по Вашему запросу ничего не найдено.
+  -else
+    - @products.each do |prod|
+      .list-item
+
+        .list-item-main-info
+          p.list-item-title
+            = link_to prod.name, product_path(prod.slug)
+          .list-item-meta
+            = link_to prod.organization.name, prod, class: "list-item-tag item-badge job-type-full-time"
+            span.list-item-company = prod.organization.city
+
+        .list-item-secondary-info
+          p.list-item-location Количество
+          time.list-item-time = prod.quantity
+
+br
+  = will_paginate @products

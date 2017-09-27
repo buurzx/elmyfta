@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Organization < ApplicationRecord
   attr_accessor :user_phone
   alias_attribute :org_name, :name
@@ -18,6 +20,7 @@ class Organization < ApplicationRecord
   store_attributes :info do
     site String
     address String
+    contact String
     phone String
     email String
   end

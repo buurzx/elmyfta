@@ -1,8 +1,9 @@
-# frozen_string_literal: true
+class SearchService
+  def initialize
 
-class PagesController < ApplicationController
-  def index
+  end
 
+  def method_name
     if params[:search_type] == '0' || params[:search_type].blank?
       products = Product.includes(:organization)
 
@@ -16,21 +17,5 @@ class PagesController < ApplicationController
     elsif params[:search_type] == '1'
       @organizations = Organization.where('organizations.name ilike ?', "%#{params[:q]}%").page(params[:page]).per_page(20)
     end
-  end
-
-  def agreement; end
-
-  def privacy; end
-
-  def catalogs
-    service = DocumentService.new
-    @cats   = service.catalogs
-    @certs  = service.certificates
-  end
-
-  private
-
-  def search_service
-    @search_service = SearchService.new()
   end
 end
