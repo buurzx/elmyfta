@@ -1,13 +1,8 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  include Storext.model(info: {})
-
-  attr_accessor :inn, :org_name, :file, :address, :site,
-                :contact, :city, :description
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   belongs_to :organization, optional: true
 
@@ -17,13 +12,6 @@ class User < ApplicationRecord
   validate :check_organization_and_join, on: :create
 
   after_commit :send_welcome, :parse_products, :mark_as_contact, on: :create
-
-  # before_create :find_organization_and_join
-  # after_commit :setup_organization, on: :create
-
-  store_attributes :info do
-    phone String
-  end
 
   def check_organization_and_join
     org = Organization.find_by(inn: inn.strip, name: org_name.strip)
@@ -53,8 +41,8 @@ class User < ApplicationRecord
   end
 
   def mark_as_contact
-    return if self.organization.users.count > 1
+    return if organization.users.count > 1
 
-    self.update_column(:contact, true)
+    update_column(:contact, true)
   end
 end

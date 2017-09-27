@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FactoryGirl
   mattr_accessor :used_factories
 
