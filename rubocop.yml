@@ -1,0 +1,39 @@
+AllCops:
+  TargetRubyVersion: 2.4.1
+  TargetRailsVersion: 5.1
+  Exclude:
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'public/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'Gemfile'
+    - 'node_modules/**/*'
+  UseCache: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+Metrics/LineLength:
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  Max: 100
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 25
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 20

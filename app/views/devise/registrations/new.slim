@@ -1,0 +1,41 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Войти/Зарегистрировать организацию
+            .page-hero-details
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      - if devise_error_messages!
+        .box-message.box-message-error
+          .box-message-content
+            p
+              = devise_error_messages!
+      br/
+      .row
+        .col-lg-6.col-xs-12.offset-lg-3
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            h3 Регистрация
+
+            .form-field
+              label for="email-register"  E-mail
+              = f.email_field :email, autofocus: true, required: true, placeholder: 'example@example.com'
+
+            .form-field
+              label for="username-register"  ФИО
+              = f.text_field :name, autofocus: true, required: true, placeholder: 'Иванов Высилий Петорович'
+
+            .form-field
+              label for="password-register" Организация
+              = f.text_field :org_name, autocomplete: "off", required: true
+
+            .form-field
+              label for="username-register"  ИНН
+              = f.text_field :inn, autofocus: true, required: true, placeholder: 'Инн организации 10 или 12 цифр'
+
+            .form-field
+              button.btn type="submit"  Создать аккаунт

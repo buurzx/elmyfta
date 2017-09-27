@@ -15,7 +15,6 @@ services:
       - '.env.docker.local'
     depends_on:
       - postgres
-      - webpacker
     build:
       context: .
       dockerfile: Dockerfile

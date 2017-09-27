@@ -1,0 +1,43 @@
+header.header
+  .container
+    .row
+      .col-xs-12
+        .mast-head
+          h1.site-logo
+            a href="/"
+              = image_tag 'logo-elmyfta.png', style: '117x23'
+          nav.nav
+            ul.navigation-main
+              li.menu-item-home.current-menu-item
+                a href="/"  Главная
+              li
+                = link_to 'Добавить остатки', new_product_path
+
+              li
+                a href="/catalogs"  Тех.информация
+
+              -if user_signed_in?
+                li.menu-item-has-children
+                  a href="#"
+                    = current_user.organization.name
+                  ul.sub-menu
+                    li
+                      = link_to 'Профиль организации', organization_path(current_user.organization)
+
+                    li
+                      = link_to 'Аккаунт', edit_user_registration_path
+
+                    li
+                      = link_to 'Добавить остатки', edit_products_path
+
+                    li
+                      =link_to 'Выйти', destroy_user_session_path, method: :delete
+              -else
+                li.menu-item-btn
+                  = link_to "Войти", user_session_path
+            /! #navigation
+            a.mobile-nav-trigger href="#mobilemenu"
+              i.fa.fa-navicon
+              | Menu
+          /! #nav
+          #mobilemenu

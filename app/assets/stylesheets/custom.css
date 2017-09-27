@@ -1,0 +1,67 @@
+.pad_10 {
+  padding: 10px;
+}
+
+.mtop_10 {
+  margin-top: 10px;
+}
+
+.mtop_20 {
+  margin-top: 20px !important;
+}
+
+ul.catalogs {
+  list-style-type: none;
+
+  li a img {
+    margin-right: 3px !important;
+  }
+}
+
+span.small__head {
+  font-size: 24px;
+}
+
+.not-active {
+   pointer-events: none;
+   cursor: default;
+   background-color: grey !important;
+}
+
+.ads__header {
+  font-size: 18px;
+}
+
+.ml-1 {
+  margin-left: 1em;
+}
+
+.ml-45-prc {
+  margin-left: 45%;
+}
+
+.center {
+  text-align: center;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 10px 10px 0;
+}
+
+.tab {
+  padding-left: 15px;
+}
+
+ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
+ul#tabs li { display: inline; }
+ul#tabs li a { color: white; background-color: #A7E4F6; border: 1px solid #015C77; border-bottom: none; padding: 9px; text-decoration: none; }
+ul#tabs li a:hover { background-color: #A7E4F6; }
+ul#tabs li a.selected { color: white; font-weight: bold; background-color: #00C5FF; padding: 10px; }
+ul#tabs li a p { display: inline !important; }
+ul#tabs li a img { display: inline !important; }
+
+
+div.tabContent { padding: 0.5em; border: 1px solid #015C77;  }
+div.tabContent.hide { display: none; }

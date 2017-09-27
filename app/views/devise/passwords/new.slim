@@ -1,0 +1,22 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      - if !devise_error_messages!.blank?
+        .box-message.box-message-error
+          .box-message-content
+            p
+              = devise_error_messages!
+      br/
+      .row
+        .col-lg-6.col-xs-12.offset-lg-3
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+            h3  Восстановить пароль
+            .form-field
+              label for="email"  E-mail
+              = f.email_field :email, autofocus: true, required: true, placeholder: 'example@example.com'
+
+            .form-field
+              button.btn type="submit"  Восстановить пароль

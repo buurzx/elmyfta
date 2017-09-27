@@ -1,0 +1,66 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Войти/Зарегистрировать организацию
+            .page-hero-details
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      .row
+        .col-lg-6.col-xs-12
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            h3 Войти
+
+            .form-field
+              label for="username-login"  Email
+              = f.email_field :email, autofocus: true, id: "username-login", required: true, placeholder: 'example@example.com'
+
+            .form-field
+              label for="username-password"  Пароль
+              = f.password_field :password, autocomplete: "off", id: "username-password"
+
+            / .form-field
+            /   label
+            /     input type="checkbox" /
+            /     | Remember me
+
+            .form-field
+              button.btn type="submit"  Войти
+
+              .mtop_10.pull-right
+                = link_to 'Забыли пароль?', new_user_password_path
+
+        .col-lg-6.col-xs-12
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            h3 Регистрация
+
+            .form-field
+              label for="email-register"  E-mail
+              = f.email_field :email, autofocus: true, required: true, placeholder: 'example@example.com'
+
+            .form-field
+              label for="username-register"  ФИО
+              = f.text_field :name, autofocus: true, required: true, placeholder: 'Иванов Высилий Петорович'
+
+            .form-field
+              label for="password-register" Организация
+              = f.text_field :org_name, autocomplete: "off", required: true, placeholder: 'ООО ЭлСтройМаш'
+
+            .form-field
+              label for="username-register"  ИНН
+              = f.text_field :inn, autofocus: true, required: true, placeholder: 'Инн организации 10 или 12 цифр'
+
+            .form-field.center
+              p
+                | Нажимая кнопку «Создать аккаунт»,
+                br
+                | Вы принимаете условия
+                br
+                = link_to "Пользовательского соглашения", agreement_path
+
+            .form-field.center
+              button.btn type="submit"  Создать аккаунт
