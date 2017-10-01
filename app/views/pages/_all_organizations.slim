@@ -1,0 +1,17 @@
+h3.section-title
+.item-listing
+  - if @organizations.empty?
+    .list-item
+      .list-item-main-info
+        p К сожалению по Вашему запросу ничего не найдено.
+  -else
+    - @organizations.each do |org|
+      .list-item
+        .list-item-main-info
+          p.list-item-title
+            = link_to "#{org.name}", organization_path(org.id)
+          .list-item-meta
+            span.list-item-company = org.city
+
+br
+  = will_paginate @organizations

@@ -1,0 +1,87 @@
+- title = 'Элмуфта - кабельная арматура из наличия'
+doctype html
+html
+  head
+    title #{@page_title ?  @page_title+" | " + title : title}
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag    'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+    = javascript_include_tag 'application'
+    = favicon_link_tag 'favicon.png'
+    meta name="keywords" content="кабельные муфты, кабель муфта, кабельная муфта, муфта кабельный, кабельный кабель, норма кабель, муфты, электро муфты, тайко электроникс, te, tyco electronics, райхем, raychem, кабельная арматура, концевые муфты, единительные муфты, муфта polt, муфта polj, муфта квтп, муфта кнтп, муфта стп, термоусаживаемые муфты"
+    meta name="description" content="Площадка для реализации кабельной арматуры. Муфты со складов по всей России и стран СНГ"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+  body
+    #page
+      .flash_msg
+        - if notice
+          .box-message.box-message-success
+            .box-message-content
+              p
+                = notice
+        - if !alert.blank?
+          .box-message.box-message-error.center
+            .box-message-content
+              p
+                - if alert.is_a? Array
+                  -alert.each do |er|
+                    p = er
+                - else
+                  = alert
+
+      = yield :hero
+
+      main class=(elevated? ? 'main' : 'main main-elevated')
+        .container
+          = yield
+      .mobile-triggers
+        a.mobile-trigger.form-filter-trigger href="#"
+          i.fa.fa-search
+          | Найти
+        a.mobile-trigger.sidebar-wrap-trigger href="#"
+          i.fa.fa-navicon
+          | Фильтры
+      footer.footer
+        .container
+          .row
+            .col-xs-12
+              .row
+                .col-lg-6.col-md-6.col-xs-12
+                  aside.widget.widget_categories.group
+                    strong.ads__header.widget-title Разделы
+                    ul.mtop_20
+                      li
+                        a href="/"  Главная
+                      li
+                        = link_to 'Добавить остатки', new_product_path
+                      li
+                        a href="/catalogs"  Каталоги
+                .col-lg-6.col-md-6.col-xs-12
+                  aside.widget.widget_text.group
+                    strong.ads__header.widget-title Контакты
+                    p.mtop_20
+                      | По любым информационным вопросам просьба обращаться на email:
+                      a href="mailto:info@elmyfta.ru"  info@elmyfta.ru
+                    p
+                      | По техническим вопросам и работе сайта:
+                      a href="mailto:help@elmyfta.ru"  help@elmyfta.ru
+              .footer-copy
+                .row
+                  .col-sm-12.col-xs-12
+                    span
+                      | Copyright
+                      a href="mailto:info@elmyfta.ru"  ЭлМуфта
+                      | &ndash; #{Time.current.year} г.
+                    br
+                    span
+                      | Мы не занимаемся продажей. Информация о наличии и стоимости продукции не является публичной офертой.
+
+                    span.pull-right
+                      = link_to 'Пользовательское соглашение', agreement_path
+                      br
+                      = link_to 'Oбработка персональных данных', privacy_path
+                  .col-sm-4.col-xs-12.text-right
+                = render partial: 'shared/metrika'
+
