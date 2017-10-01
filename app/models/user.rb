@@ -4,14 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  belongs_to :organization, optional: true
+  belongs_to :organization
 
   validates :name, :email, presence: true
-  validates :inn, :org_name, presence: true, on: :create
-  validates :inn, numericality: true, length: { in: 10..12 }, on: :create
-  validate :check_organization_and_join, on: :create
+  # validate :check_organization_and_join, on: :create
 
-  after_commit :send_welcome, :parse_products, :mark_as_contact, on: :create
+  # after_commit :send_welcome, :parse_products, :mark_as_contact, on: :create
+  after_commit :send_welcome, on: :create
 
   def check_organization_and_join
     org = Organization.find_by(inn: inn.strip, name: org_name.strip)

@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
-  attr_accessor :user_phone
-  alias_attribute :org_name, :name
+  include Storext.model
+  # .model(info: {})
+  # store :info, accessors: [:description]
 
-  include Storext.model(info: {})
-  store :info, accessors: [:description]
-
-  has_many :users, inverse_of: :organization, dependent: :destroy
+  has_many :users, inverse_of: :organization
   has_many :products, inverse_of: :organization, dependent: :destroy
 
   validates :name, :inn, presence: true
@@ -15,7 +13,7 @@ class Organization < ApplicationRecord
             uniqueness: { message: I18n.t('errors.models.organization.attributes.inn.not_unique') }
   validates :inn, numericality: true, length: { in: 10..12 }
 
-  after_commit :update_user_phone
+  # after_commit :update_user_phone
 
   store_attributes :info do
     site String

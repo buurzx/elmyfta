@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resource  :products,      only: :edit
   resources :products,      only: %i[show new create]
 
-  resources :organizations, only: %i[edit update show]
+  resources :organizations, only: %i[create edit update show]
 
   resources :users,         only: [:update]
 
