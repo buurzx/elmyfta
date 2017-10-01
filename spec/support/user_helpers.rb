@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+# rubocop:disable Metrics/AbcSize
+
 module UserHelpers
   def create_user_with_last_action_ago(n = nil)
     time = n ? n.minutes.ago : Time.current.utc

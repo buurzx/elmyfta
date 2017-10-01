@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop: disable Metrics/AbcSize
+
 require 'rubyXL'
 
 class ParserService
@@ -17,20 +19,14 @@ class ParserService
     workbook = RubyXL::Parser.parse(file)
     worksheet = workbook[0]
 
-    # empty_row = 0
     products = []
 
     worksheet.each do |row|
-      # empty_row += 1 unless row
       break unless row.cells.first.value
-      # next if
-      # empty_row = 0
-
       products << { name: row.cells.first.value,
                     quantity: row.cells.second.value }
     end
 
-    # organization.products.destroy_all
     products.each do |p|
       prod = organization.products.find_or_create_by(name: p[:name])
       error!(prod.errors.full_messages) && break unless prod.valid?

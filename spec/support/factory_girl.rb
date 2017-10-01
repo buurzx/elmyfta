@@ -21,7 +21,8 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     if FactoryGirl.unused_factories.present? && ENV['TEST_ENV_NUMBER'].nil?
-      puts "\nWARNING: You have #{FactoryGirl.unused_factories.count} unused factories: #{FactoryGirl.unused_factories}"
+      puts "\nWARNING: You have #{FactoryGirl.unused_factories.count}"\
+           " unused factories: #{FactoryGirl.unused_factories}"
     end
   end
 end
