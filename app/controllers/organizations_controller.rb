@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class OrganizationsController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :find_org, only: [:edit, :update, :show]
+  before_action :authenticate_user!, except: %i[create show]
+  before_action :find_org, only: %i[edit update show]
 
   def edit; end
 
