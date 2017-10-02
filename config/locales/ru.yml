@@ -1,0 +1,63 @@
+# ru.activemodel.errors.models.organization.attributes.inn.too_short
+ru:
+  errors:
+    models:
+      organization:
+        attributes:
+          inn:
+            not_unique: 'Организация с таким ИНН уже существует'
+  will_paginate:
+    previous_label: 'Предыдущая'
+    next_label: 'Следующая'
+    page_gap: '...'
+  activemodel:
+    attributes:
+      product:
+        name: 'Наименовение'
+        quantity: 'Количество'
+      organization:
+        inn: ''
+      user:
+        reset_password_token: 'Токен сброса пароля'
+        password: 'Пароль'
+        current_password: 'Текущий пароль'
+        birthday: 'Ваш возраст'
+        sex: 'Пол'
+        city: 'Город'
+        inn: ''
+
+    errors:
+      models:
+        product:
+          attributes:
+            name:
+              blank: 'не может быть пустым'
+            quantity:
+              blank: 'не может быть пустым'
+
+        organization:
+          attributes:
+            inn:
+              taken: 'Организация с таким ИНН уже существует'
+              not_unique: 'Организация с таким ИНН уже существует'
+              too_short: 'ИНН должно быть от 10 до 12 цифр'
+              too_long: 'ИНН должно быть от 10 до 12 цифр'
+              not_a_number: 'ИНН должно состоять только из цифр'
+
+        user:
+          attributes:
+            current_password:
+              blank: 'введите пожалуйста'
+              invalid: 'не верен'
+            name:
+              name_correctness: 'Имя должно содержать только буквы'
+            email:
+              blank: 'должен быть заполнен'
+              taken: 'уже зарегистрирован'
+            password:
+              blank: 'Пароль должен быть заполнен'
+              too_short: 'Пароль должен содержать не менее 6 символов'
+            reset_password_token:
+              invalid: 'недействителен'
+  organization:
+    inn_or_name: 'Проверьте пожалуйста ИНН и название Вашей организации'

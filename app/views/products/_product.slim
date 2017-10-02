@@ -1,0 +1,15 @@
+- @products.each do |prod|
+  .list-item
+    .list-item-main-info
+      p.list-item-title
+        = link_to "#{prod.name} #{prod.mark}", product_path(prod.id)
+      .list-item-meta
+        = link_to prod.organization.name, prod, class: "list-item-tag item-badge job-type-full-time"
+        / a.list-item-tag.item-badge.job-type-full-time href="" = prod.organization.city
+        span.list-item-company = prod.organization.city
+    .list-item-secondary-info
+      p.list-item-location Количество
+      - if user_signed_in?
+        time.list-item-time = prod.quantity
+      - else
+        = link_to 'Узнать', new_user_session_path

@@ -6,10 +6,13 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+    # GET /resource/sign_in
+    def new
+      @form = UserForm.new User.new(contact: true)
+      @form.organization = Organization.new
+      @form.validate params
+      super
+    end
 
   # DELETE /resource/sign_out
   # def destroy

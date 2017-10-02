@@ -1,0 +1,22 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Добавить остатки по продукции
+            .page-hero-details
+
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      - if !flash[:alert].blank?
+        .box-message.box-message-error
+          .box-message-content
+            - flash[:alert].each do |e|
+              p
+                = e
+      br /
+
+      = render partial: 'signed_organization'

@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926111958) do
+ActiveRecord::Schema.define(version: 20171002170342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "inn", null: false
+    t.text "description"
+    t.string "city"
+    t.jsonb "info", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["info"], name: "index_organizations_on_info", using: :gin
+    t.index ["inn", "name"], name: "index_organizations_on_inn_and_name", unique: true
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "quantity", default: 0
+    t.string "slug", default: "0"
+    t.bigint "organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_products_on_name"
+    t.index ["organization_id"], name: "index_products_on_organization_id"
+    t.index ["slug"], name: "index_products_on_slug", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,6 +50,9 @@ ActiveRecord::Schema.define(version: 20170926111958) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "name", null: false
+    t.string "phone"
+    t.boolean "contact", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

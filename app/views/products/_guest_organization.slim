@@ -1,0 +1,53 @@
+= form_for(@form, url: '/users') do |f|
+  .row
+    .col-lg-6.col-xs-12
+      h3 Реквизиты организации
+
+      = f.fields_for @form.organization do |ff|
+        .form-field
+          label for="name"  Название организации*
+          = ff.text_field :name, autofocus: true, placeholder: 'ООО Элмуфта', required: true
+        .form-field
+          label for="inn"  Инн*
+          = ff.text_field :inn, placeholder: '10 - 12 цифер', required: true
+
+        .form-field
+          label for="inn"  Город*
+          = ff.text_field :city, placeholder: 'Москва', required: true
+
+        .form-field
+          label for="address"  Адрес*
+          = ff.text_field :address, placeholder: '101100, ул.Примерная, стр.9, оф.25', required: true
+
+        .form-field
+          label for="site"  Сайт
+          = ff.text_field :site, placeholder: 'www.example.ru'
+
+        .form-field
+          label for="inn"  Об организации
+          = ff.text_area :description, cols: 20, rows: 10
+
+    .col-lg-6.col-xs-12
+      h3 Контактное лицо
+      .form-field
+        label for="name"  Имя*
+        = f.text_field :name, placeholder: 'Иванов Василий Петрович', required: true
+      .form-field
+        label for="email"  Email*
+        = f.email_field :email, placeholder: 'example@mail.ru', required: true
+        em будет выслано письмо с паролем
+
+      .form-field
+        label for=""  Телефон
+        = f.text_field :phone, placeholder: '+7(999)-999-99-99'
+
+      .form-field.center
+        p
+          | Нажимая кнопку «Создать профиль,
+          br
+          | Вы принимаете условия
+          br
+          = link_to "Пользовательского соглашения", agreement_path
+
+      .form-field.center
+        = f.submit 'Создать профиль'

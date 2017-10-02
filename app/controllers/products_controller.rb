@@ -2,6 +2,21 @@ class ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: [:new, :show]
 
+  def new
+    @form = UserForm.new User.new(contact: true)
+    @form.organization = Organization.new
+
+    if params.present?
+      @form.validate params.permit!.except('controller', 'action')
+    end
+
+    # @org = if params.present?
+    #          Organization.new(params.permit!.except('controller', 'action'))
+    #        else
+    #          Organization.new
+    #        end
+  end
+
   def show
     @product = Product.friendly.find_by(slug: params[:id])
     unless @product
@@ -35,13 +50,5 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.new
     @org = current_user.organization
-  end
-
-  def new
-    @org = if params.present?
-             Organization.new(params.permit!.except('controller', 'action'))
-           else
-             Organization.new
-           end
   end
 end
