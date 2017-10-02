@@ -21,6 +21,7 @@ services:
     command: bundle exec rails s -b '0.0.0.0'
     volumes:
       - .:/myfta
+      - bundle:/usr/local/bundle
     links:
       - postgres:postgres.local
     ports:
@@ -35,3 +36,4 @@ services:
 
 volumes:
   database:
+  bundle:

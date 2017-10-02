@@ -140,6 +140,5 @@ end
 DirtyCop.process_bribe
 
 prms = DirtyCop.uncovered_targets
-prms.unshift '-D'
-
+exit(0) if DirtyCop.uncovered_targets.empty?
 exit RuboCop::CLI.new.run(prms)

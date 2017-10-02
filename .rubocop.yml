@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   TargetRubyVersion: 2.4.1
   TargetRailsVersion: 5.1
@@ -12,7 +14,6 @@ AllCops:
     - 'bin/*'
     - 'Gemfile'
     - 'node_modules/**/*'
-  UseCache: false
 
 Style/Documentation:
   Enabled: false

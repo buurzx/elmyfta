@@ -1,0 +1,103 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Каталоги
+            .page-hero-details
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      .row
+        .col-lg-10.col-xs-12
+          ul#tabs
+            li
+              a href="#instructions" Монтажные инструкции
+            li
+              a href="#certificates" Сертификаты соответствия
+
+          .tabContent#instructions
+            - @cats.each do |file|
+              strong = file[:manufactor]
+
+              - file[:docs].each do |doc|
+                ul.catalogs
+                  li
+                    = link_to doc[:path], target: '_blank', alt: doc[:name] do
+                      = image_tag('pdf.jpg', size: '50x50', alt: doc[:name])
+                      = doc[:name]
+              br
+
+          .tabContent#certificates
+            - @certs.each do |file|
+              - file[:docs].each do |doc|
+                ul.catalogs
+                  li
+                    = link_to doc[:path], target: '_blank', alt: doc[:name] do
+                      = image_tag('pdf.jpg', size: '30x30', alt: doc[:name])
+                      p[style="padding-left: 3px; display: inline;"] = doc[:name]
+            br
+
+coffee:
+  tabLinks = new Array()
+  contentDivs = new Array()
+
+
+  init = ->
+    tabListItems = document.getElementById('tabs').childNodes
+    i = 0
+    while i < tabListItems.length
+      if tabListItems[i].nodeName == 'LI'
+        tabLink = getFirstChildWithTagName(tabListItems[i], 'A')
+        id = getHash(tabLink.getAttribute('href'))
+        tabLinks[id] = tabLink
+        contentDivs[id] = document.getElementById(id)
+      i++
+
+    y = 0
+    for id of tabLinks
+      tabLinks[id].onclick = showTab
+
+      tabLinks[id].onfocus = ->
+        @blur()
+        return
+
+      if y == 0
+        tabLinks[id].className = 'selected'
+      y++
+
+    z = 0
+    for id of contentDivs
+      if z != 0
+        contentDivs[id].className = 'tabContent hide'
+      z++
+    return
+
+  document.addEventListener("DOMContentLoaded", init)
+
+  showTab = ->
+    selectedId = getHash(@getAttribute('href'))
+
+    for id of contentDivs
+      if id == selectedId
+        tabLinks[id].className = 'selected'
+        contentDivs[id].className = 'tabContent'
+      else
+        tabLinks[id].className = ''
+        contentDivs[id].className = 'tabContent hide'
+
+    false
+
+  getFirstChildWithTagName = (element, tagName) ->
+    i = 0
+    while i < element.childNodes.length
+      if element.childNodes[i].nodeName == tagName
+        return element.childNodes[i]
+      i++
+    return
+
+  getHash = (url) ->
+    hashPos = url.lastIndexOf('#')
+    url.substring hashPos + 1
