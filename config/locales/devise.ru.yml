@@ -20,7 +20,6 @@ ru:
     mailer:
       confirmation_instructions:
         subject: "Инструкции по подтверждению учётной записи."
-        # subject: 'Добро пожаловать на Milami.love'
       reset_password_instructions:
         subject: "Инструкции по восстановлению пароля."
       unlock_instructions:

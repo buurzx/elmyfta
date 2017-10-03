@@ -4,8 +4,10 @@
 
 RSpec.describe Users::RegistrationsController, type: :controller do
   describe '#create' do
+    render_views
+
     let!(:org) { create(:organization) }
-    let!(:org_params) { { inn: '1231231231', name: 'Example' } }
+    let!(:org_params) { { inn: '1231231231', name: 'Example', city: 'Moscow' } }
 
     before do
       @request.env['devise.mapping'] = Devise.mappings[:user]
@@ -18,11 +20,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         expect do
           post :create, params: { user: { email: 'tt@test.tt', name: 'Vasya' } }
         end.not_to change(User, :count)
-      end
-
-      it 'responds with 302' do
-        post :create, params: { user: { email: 'tt@test.tt', name: 'Vasya' } }
-        expect(response).to redirect_to(new_user_session_path)
       end
 
       it 'responds with flash' do
@@ -42,7 +39,8 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         org
         post :create, params: { user: { email: 'tt@test.tt', name: 'Vasya',
                                         organization: org_params } }
-        expect(flash[:error]).to eq ['Organization inn has already been taken']
+        expect(flash[:error][:"organization.inn"])
+          .to eq [I18n.t('activemodel.errors.models.organization.attributes.inn.taken')]
       end
     end
 
@@ -95,34 +93,5 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end
       end
     end
-
-    # context 'when create user form products new' do
-    #   let!(:org) { build(:organization) }
-
-    #   it 'creates user' do
-    #     expect do
-    #       post :create, params: { user: org.attributes.merge(inn: '1231231231',
-    #                                                          org_name: 'Vasya',
-    #                                                          phone: '79999999999',
-    #                                                          address: 'Zarya, 77-12',
-    #                                                          city: 'Moscow',
-    #                                                          contact: 'Vasya',
-    #                                                          email: 'qwe@wew.we',
-    #                                                          site: 'reeq.re') }
-    #     end.to change(User, :count).by 1
-    #   end
-
-    #   it 'creates user' do
-    #     post :create, params: { user: org.attributes.merge(inn: '12312231',
-    #                                                        org_name: 'Vasya',
-    #                                                        phone: '79999999999',
-    #                                                        address: 'Zarya, 77-12',
-    #                                                        city: 'Moscow',
-    #                                                        contact: 'Vasya',
-    #                                                        email: 'qwe@wew.we',
-    #                                                        site: 'reeq.re') }
-    #     expect(response.status).to eq 422
-    #   end
-    # end
   end
 end

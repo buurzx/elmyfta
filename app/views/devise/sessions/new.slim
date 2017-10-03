@@ -30,21 +30,29 @@
                 = link_to 'Забыли пароль?', new_user_password_path
 
         .col-lg-6.col-xs-12
-          = simple_form_for :user, url: registration_path(resource_name) do |f|
+          = form_for :user, url: registration_path(resource_name) do |f|
             h3 Новая организация
 
             = f.fields_for :organization do |org|
               .form-field
-                = org.input :name, autocomplete: "off", label: 'Организация', required: true, placeholder: 'ООО ЭлСтройМаш'
+                label for="name"  Организация
+                = org.text_field :name, autocomplete: "off", required: true, placeholder: 'ООО ЭлСтройМаш'
 
               .form-field
-                = org.input :inn, label: 'ИНН', required: true, placeholder: 'Инн организации 10 или 12 цифр'
+                label for="inn"  ИНН
+                = org.text_field :inn, required: true, placeholder: 'Инн организации 10 или 12 цифр'
+
+              .form-field
+                label for="city"  Город
+                = org.text_field :city, required: true, placeholder: 'Москва'
 
             .form-field
-              = f.input :email, label: 'E-mail контактного лица', autofocus: true, required: true, placeholder: 'example@example.com'
+              label for="email"  E-mail контактного лица
+              = f.email_field :email, autofocus: true, required: true, placeholder: 'example@example.com'
 
             .form-field
-              = f.input :name, label: 'ФИО контактного лица', required: true, placeholder: 'Иванов Василий Петорович'
+              label for="name"  ФИО контактного лица
+              = f.text_field :name, required: true, placeholder: 'Иванов Василий Петорович'
 
 
             .form-field.center
@@ -56,4 +64,4 @@
                 = link_to "Пользовательского соглашения", agreement_path
 
             .form-field.center
-              = f.button :submit, value: 'Создать аккаунт'
+              button.btn type="submit"  Создать аккаунт
