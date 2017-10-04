@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   belongs_to :organization
 
   validates :name, :quantity, presence: true
+  validates :quantity, numericality: true
 
   friendly_id :slug_candidates, use: :slugged
 
@@ -16,11 +17,10 @@ class Product < ApplicationRecord
   end
 
   def slug_candidates
-    [:name,
-     %i[name organization_id]]
+    [:name, %i[name organization_id]]
   end
 
-  def normalize_friendly_id(input)
-    input.to_s.to_slug.normalize(transliterations: :russian).to_s
+  def normalize_friendly_id(text)
+    text.to_slug.normalize! transliterations: %i[russian latin]
   end
 end

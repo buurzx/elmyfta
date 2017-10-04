@@ -3,7 +3,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
     create_table :products do |t|
       t.string     :name,     null: false
       t.integer    :quantity, default: 0
-      t.string     :slug,     default: 0
+      t.string     :slug
       t.belongs_to :organization
 
       t.timestamps
