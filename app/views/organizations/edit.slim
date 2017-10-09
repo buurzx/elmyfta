@@ -1,0 +1,64 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Редактировать данные организации
+            .page-hero-details
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      - if session[:errors].present? && session[:errors].is_a?(Array)
+        .box-message.box-message-error
+          .box-message-content
+            - session[:errors].each do |er|
+              p = er
+        br /
+      = form_for @org do |f|
+        .row
+          .col-lg-6.col-xs-12
+            h3 Реквизиты
+            .form-field
+              label for="name"  Название организации
+              = f.text_field :name, autofocus: true
+            .form-field
+              label for="inn"  Инн
+              = f.text_field :inn
+
+            .form-field
+              label for="city"  Город
+              = f.text_field :city
+
+            .form-field
+              label for="address"  Адрес
+              = f.text_field :address
+
+            .form-field
+              label for="phone"  Телефон
+              = f.text_field :phone
+
+            .form-field
+              label for="site"  Сайт
+              = f.text_field :site
+
+            .form-field
+              label for="description"  Об организации
+              = f.text_area :description, cols: 20, rows: 10
+
+          .col-lg-6.col-xs-12
+            h3 Контактное лицо
+            .form-field
+              label for="contact"  Имя
+              = f.text_field :contact, placeholder: 'Иван Петров'
+            .form-field
+              label for=""  Email
+              = f.email_field :email
+
+            .form-field
+              label for="user_phone"  Телефон
+              = f.text_field :user_phone, value: f.object.contact_user&.phone
+
+            .form-field.pull-right
+                button.btn type="submit" Обновить данные

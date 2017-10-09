@@ -8,6 +8,8 @@ module Users
 
       if @form.validate permitted_params
         @form.save
+        flash[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
+        redirect_to root_path
       else
         flash[:error] = @form.errors.messages
         respond_with @form
@@ -16,8 +18,8 @@ module Users
 
     protected
 
-    def after_sign_up_path_for(_resource)
-      root_path
+    def after_sign_up_path_for(resource)
+      edit_products_path
     end
 
     def permitted_params

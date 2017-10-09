@@ -91,4 +91,22 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.yandex.ru',
+    port: 587,
+    user_name: ENV['INFO_EMAIL'],
+    password: ENV['INFO_PASS'],
+    authentication: 'plain', # :plain, :login, :cram_md5, no auth by default
+    domain: 'yandex.ru'
+  }
+
+  exception_notification_params = {
+    email: {
+      email_prefix: '[MYFTA] ',
+      sender_address: %("MYFTA" <ENV['INFO_EMAIL']>),
+      exception_recipients: %w[ENV['EXCEPTION_EMAIL']]
+    }
+  }
+  config.middleware.use(ExceptionNotification::Rack, exception_notification_params)
 end

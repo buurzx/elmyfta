@@ -16,11 +16,11 @@ html
   body
     #page
       .flash_msg
-        - if notice
+        - if flash[:notice]
           .box-message.box-message-success
             .box-message-content
               p
-                = notice
+                = flash[:notice]
         - if !alert.blank?
           .box-message.box-message-error.center
             .box-message-content

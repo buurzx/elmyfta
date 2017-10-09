@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -36,8 +36,6 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
-
-  default_url_options
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -58,5 +56,28 @@ Rails.application.configure do
 
   config.x.webpacker[:dev_server_host] = 'http://0.0.0.0:3035'
 
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :letter_opener_web
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # config.action_mailer.smtp_settings = {
+  #   # enable_starttls_auto: true
+  #   address: 'smtp.yandex.ru',
+  #   port: 587,
+  #   user_name: 'info@elmyfta.ru',
+  #   password: 'elmyfta321321',
+  #   authentication: 'plain', # :plain, :login, :cram_md5, no auth by default
+  #   domain: 'yandex.ru'
+  # }
+
+  exception_notification_params = {
+    email: {
+      email_prefix: '[MYFTA] ',
+      sender_address: %("MYFTA" <info@yandex.ru>),
+      exception_recipients: %w[buurzx@gmail.com]
+    }
+  }
+  config.middleware.use(ExceptionNotification::Rack, exception_notification_params)
 end
