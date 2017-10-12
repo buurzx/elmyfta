@@ -10,7 +10,7 @@ jobs:
         - PG_USER=ubuntu
         - RAILS_ENV=test
         - RACK_ENV=test
-        - DATABASE_URL=postgres://ubuntu@localhost:5432/db_name
+        - DATABASE_URL=postgres://ubuntu@localhost:5432/db_name"
       - image: postgres:9.5
         environment:
         - POSTGRES_USER=ubuntu
@@ -32,8 +32,7 @@ jobs:
             - vendor/bundle
 
       # Database setup
-      - name: Set up DB
-        command: bundle exec rake db:create db:schema:load --trace
+      - run: bundle exec rake db:create db:schema:load --trace
 
       # rubocop
       - run: bundle exec rubocop -P
