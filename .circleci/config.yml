@@ -10,7 +10,7 @@ jobs:
         - PG_USER=ubuntu
         - RAILS_ENV=test
         - RACK_ENV=test
-        - DATABASE_URL=postgres://ubuntu@localhost:5432/db_name"
+        - DATABASE_URL=postgres://ubuntu@localhost:5432/db_name
       - image: postgres:9.5
         environment:
         - POSTGRES_USER=ubuntu
