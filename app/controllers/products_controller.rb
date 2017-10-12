@@ -2,13 +2,20 @@ class ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, except: [:new, :show]
 
+  def new
+    @form = UserForm.new User.new(contact: true)
+    @form.organization = Organization.new
+
+    @form.validate params.permit!.except('controller', 'action') if params.present?
+  end
+
   def show
     @product = Product.friendly.find_by(slug: params[:id])
     unless @product
       flash[:alert] =
         ['К сожалению, искомая позиция у производителя на данный момент отсутствует.',
-        'Возможно она есть в наличии у других поставщиков.',
-        'Воспользуйтесь поиском по порталу.']
+         'Возможно она есть в наличии у других поставщиков.',
+         'Воспользуйтесь поиском по порталу.']
 
       redirect_to root_path
       return
@@ -35,13 +42,5 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.new
     @org = current_user.organization
-  end
-
-  def new
-    @org = if params.present?
-             Organization.new(params.permit!.except('controller', 'action'))
-           else
-             Organization.new
-           end
   end
 end

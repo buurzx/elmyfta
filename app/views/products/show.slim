@@ -1,0 +1,200 @@
+- @page_title = @product.name
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title
+              = @product.name
+              span  -  #{@product.quantity} шт.
+            .page-hero-details
+              span.item-badge.job-type-full-time = @product.organization.name
+              span.entry-location =@product.organization.city
+
+.row
+  .col-xl-9.col-lg-8.col-xs-12
+    .content-wrap
+      article.entry
+        .entry-content
+          h2 Контакты:
+          #job-manager-job-dashboard
+            table.job-manager-jobs
+              thead
+                tr
+                  th.job_title
+                  th.filled
+              tbody
+                tr
+                  td.job_title
+                    | Имя
+                  td.filled
+                    = @org.contact_user.name
+                - if @org.contact_user.phone.present?
+                  tr
+                    td.job_title
+                      | Телефон
+                    td.filled
+                      a.btn.btn-transparent#show_prd_con_phone href="#"  Показать
+                      span.hidden_prd_con_phone = @org.contact_user.phone
+
+                - if !@org.email.blank?
+                  tr
+                    td.job_title
+                      | Почта
+                    td.filled
+                      a.btn.btn-transparent#show_prd_con_email href="#"  Показать
+                      span.hidden_prd_con_email = @org.email
+
+          h2 Реквизиты организации:
+          #job-manager-job-dashboard
+            table.job-manager-jobs
+              thead
+                tr
+                  th.job_title
+                  th.filled
+              tbody
+                tr
+                  td.job_title
+                    | Название
+                  td.filled
+                    = @org.name
+                - if !@org.city.blank?
+                  tr
+                    td.job_title
+                      | Город
+                    td.filled
+                      = @org.city
+                - if !@org.address.blank?
+                  tr
+                    td.job_title
+                      | Адрес
+                    td.filled
+                      = @org.address
+                tr
+                  td.job_title
+                    | ИНН
+                  td.filled
+                    = @org.inn
+                - if !@org.site.blank?
+                  tr
+                    td.job_title
+                      | Сайт
+                    td.filled
+                      = @org.site
+
+                - if !@org.phone.blank?
+                  tr
+                    td.job_title
+                      | Телефон
+                    td.filled
+                      a.btn.btn-transparent#show_prd_phone href="#"  Показать
+                      span.hidden_prd_phone = @org.phone
+
+                - if !@org.email.blank?
+                  tr
+                    td.job_title
+                      | Почта
+                    td.filled
+                      a.btn.btn-transparent#show_prd_email href="#"  Показать
+                      span.hidden_prd_email = @org.email
+
+          - if @org.description
+            hr
+            h2 Об организации:
+            p
+              = @org.description
+          hr
+          h4 Остатки по продукции:
+          .item-listing
+            - if @products.empty?
+              .list-item
+                .list-item-main-info
+                  p К сожалению по Вашему запросу ничего не найдено.
+            -else
+              b = @products.count
+              |  наименований
+              - @products.each do |prod|
+                .list-item
+                  .list-item-main-info
+                    p.list-item-title
+                      = link_to "#{prod.name}", product_path(prod.slug)
+                    .list-item-meta
+                      = link_to @org.name, prod, class: "list-item-tag item-badge job-type-full-time"
+                      span.list-item-company = @org.city
+                  .list-item-secondary-info
+                    p.list-item-location Количество
+                    time.list-item-time = prod.quantity
+
+  .col-xl-3.col-lg-4.col-xs-12
+    .sidebar
+      aside.widget.widget_ci-apply-button-widget
+        a.btn.btn-block.not-active href="#" target="_blank"
+          | Подать заявку
+      aside.widget.widget_ci-company-info-widget
+        strong.ads__header.widget-title Информация об организации
+        .card-info
+          .card-info-media
+            .card-info-details
+              p.card-info-title = @org.name
+              p.card-info-title г. #{@org.city}
+              p.card-info-link
+                a href=""  = @org.site
+      aside.widget.widget_ci-callout-widget
+        .callout-wrapper
+          .ads__header
+            = image_tag 'favicon.png', size: '23'
+            strong.ml-1 Блок рекламы
+          br /
+          p
+            strong
+              | По вопросам размещения рекламы
+              br /
+              a href="mailto:info@elmyfta.ru" info@elmyfta.ru
+          a.btn.btn-round.btn-transparent href="mailto:info@elmyfta.ru"  Разместить рекламу
+
+coffee:
+  prd_email = document.getElementById("show_prd_email")
+  prd_phone = document.getElementById("show_prd_phone")
+  prd_con_email = document.getElementById("show_prd_con_email")
+  prd_con_phone = document.getElementById("show_prd_con_phone")
+  hidden_prd_email = document.getElementsByClassName("hidden_prd_email")[0]
+  hidden_prd_phone = document.getElementsByClassName("hidden_prd_phone")[0]
+  hidden_prd_con_email = document.getElementsByClassName("hidden_prd_con_email")[0]
+  hidden_prd_con_phone = document.getElementsByClassName("hidden_prd_con_phone")[0]
+
+  ready = () ->
+    if hidden_prd_email then hidden_prd_email.style.display = 'none'
+    if hidden_prd_phone then hidden_prd_phone.style.display = 'none'
+    if hidden_prd_con_email then hidden_prd_con_email.style.display = 'none'
+    if hidden_prd_con_phone then hidden_prd_con_phone.style.display = 'none'
+
+  document.addEventListener("DOMContentLoaded", ready);
+
+  open_contact = () ->
+    if prd_email then prd_email.style.display = 'none'
+    if prd_phone then prd_phone.style.display = 'none'
+    if prd_con_email then prd_con_email.style.display = 'none'
+    if prd_con_phone then prd_con_phone.style.display = 'none'
+    if hidden_prd_email then hidden_prd_email.style.display = 'block'
+    if hidden_prd_phone then hidden_prd_phone.style.display = 'block'
+    if hidden_prd_con_email then hidden_prd_con_email.style.display = 'block'
+    if hidden_prd_con_phone then hidden_prd_con_phone.style.display = 'block'
+
+  handle_onclick = (el) ->
+    el.onclick = (ev) ->
+      ev.preventDefault()
+      open_contact(ev)
+
+  if prd_email
+    handle_onclick(prd_email)
+
+  if prd_phone
+    handle_onclick(prd_phone)
+
+  if prd_con_email
+    handle_onclick(prd_con_email)
+
+  if prd_con_phone
+    handle_onclick(prd_con_phone)

@@ -4,7 +4,7 @@ AllCops:
   TargetRubyVersion: 2.4.1
   TargetRailsVersion: 5.1
   Exclude:
-    - 'config/**/*'
+    - 'bin/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'public/*'

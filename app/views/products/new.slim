@@ -1,0 +1,28 @@
+= content_for :hero do
+  .page-hero style=("background-image: url(#{asset_path 'hero-1.jpg'});")
+    = render partial: 'shared/header'
+    .container
+      .row
+        .col-xs-12
+          .page-hero-content
+            h1.page-title Добавить остатки по продукции
+            .page-hero-details
+
+.row
+  .col-xl-10.offset-xl-1.col-lg-10.offset-lg-1.col-xs-12
+    .content-wrap
+      - if session[:errors].present?
+        .box-message.box-message-error
+          .box-message-content
+            = session[:errors]
+      br /
+
+      - if user_signed_in?
+        = render partial: 'signed_organization'
+      -else
+        p
+          | При заполнении данной формы для Вас будет создан аккаунт и выслан пароль на указанную почту.
+          |  При следующей подгрузке или обновлении товаров, Вы просто подгрузите файл, без лишних полей,
+          | а мы быстро найдем Вашу организацию и проведем обновление.
+        br
+        = render partial: 'guest_organization', f: @org

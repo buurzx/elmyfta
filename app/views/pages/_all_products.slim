@@ -3,15 +3,15 @@ h3.section-title
     b = Product.all_count
     |  Наименований
   - else
-    b = @products.count
+    b = products.count
     |  Наименований
 .item-listing
-  - if @products.empty?
+  - if products.empty?
     .list-item
       .list-item-main-info
         p К сожалению по Вашему запросу ничего не найдено.
   -else
-    - @products.each do |prod|
+    - products.each do |prod|
       .list-item
 
         .list-item-main-info
@@ -26,4 +26,4 @@ h3.section-title
           time.list-item-time = prod.quantity
 
 br
-  = will_paginate @products
+  = will_paginate products

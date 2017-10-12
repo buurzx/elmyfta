@@ -1,11 +1,11 @@
 h3.section-title
 .item-listing
-  - if @organizations.empty?
+  - if organizations.empty?
     .list-item
       .list-item-main-info
         p К сожалению по Вашему запросу ничего не найдено.
   -else
-    - @organizations.each do |org|
+    - organizations.each do |org|
       .list-item
         .list-item-main-info
           p.list-item-title
@@ -14,4 +14,4 @@ h3.section-title
             span.list-item-company = org.city
 
 br
-  = will_paginate @organizations
+  = will_paginate organizations

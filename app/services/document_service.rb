@@ -9,7 +9,8 @@ class DocumentService
     @certs = []
   end
 
-  def catalogs
+  # TODO
+  def catalogs # rubocop: disable Metrics/AbcSize
     Dir['public/catalogs/*'].map do |cat|
       filename = cat.split('/').last
       manufactor, doc = filename.split('_')

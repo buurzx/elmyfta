@@ -38,7 +38,6 @@
 #   unmodified code if they are reported in modified lines.
 
 require 'rubocop'
-require 'byebug'
 
 module DirtyCop
   extend self # In your face, style guide!
