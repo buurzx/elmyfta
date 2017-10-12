@@ -7,7 +7,9 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     render_views
     let!(:email) { 'tt@test.tt' }
     let!(:org) { create(:organization) }
-    let!(:org_params) { { inn: '1231231231', name: 'Example', city: 'Moscow' } }
+    let!(:org_params) do
+      { inn: '1231231231', name: 'Example', city: 'Moscow' }
+    end
 
     before do
       @request.env['devise.mapping'] = Devise.mappings[:user]
@@ -28,7 +30,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       it 'not create organization with same inn' do
-        org
         expect do
           post :create, params: { user: { email: email, name: 'Vasya',
                                           organization: org_params } }
@@ -36,7 +37,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
 
       it 'checks flash message' do
-        org
         post :create, params: { user: { email: email, name: 'Vasya',
                                         organization: org_params } }
         expect(flash[:error][:"organization.inn"])

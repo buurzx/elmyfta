@@ -6,15 +6,7 @@ class ProductsController < ApplicationController
     @form = UserForm.new User.new(contact: true)
     @form.organization = Organization.new
 
-    if params.present?
-      @form.validate params.permit!.except('controller', 'action')
-    end
-
-    # @org = if params.present?
-    #          Organization.new(params.permit!.except('controller', 'action'))
-    #        else
-    #          Organization.new
-    #        end
+    @form.validate params.permit!.except('controller', 'action') if params.present?
   end
 
   def show

@@ -8,6 +8,8 @@ class Product < ApplicationRecord
   validates :name, :quantity, presence: true
   validates :quantity, numericality: true
 
+  scope :with_name, ->(name) { where('products.name ilike ?', "%#{name}%") }
+
   friendly_id :slug_candidates, use: :slugged
 
   def self.all_count

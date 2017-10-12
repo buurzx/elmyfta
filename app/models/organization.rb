@@ -11,6 +11,8 @@ class Organization < ApplicationRecord
             uniqueness: { message: I18n.t('errors.models.organization.attributes.inn.taken') }
   validates :inn, numericality: true, length: { in: 10..12 }
 
+  scope :with_name, ->(name) { where('organizations.name ilike ?', "%#{name}%") }
+
   store_attributes :info do
     site String
     address String
@@ -19,6 +21,7 @@ class Organization < ApplicationRecord
     email String
   end
 
+  # TODO
   def self.org_count
     Rails.cache.fetch('org_count', expires_in: 30.minutes) do
       count
@@ -29,6 +32,7 @@ class Organization < ApplicationRecord
     users.where(contact: true).first
   end
 
+  # TODO
   def update_user_phone
     return if user_phone.blank?
 

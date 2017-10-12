@@ -6,7 +6,7 @@ require 'ffaker'
   name = "#{FFaker::NameRU.last_name} #{FFaker::NameRU.first_name} #{FFaker::NameRU.patronymic}"
 
   org = Organization.create(name: FFaker::Vehicle.make,
-                      inn: rand(0o0000000000..99_999_999_999).to_s)
+                            inn: rand(0o0000000000..99_999_999_999).to_s)
   User.create(name: name,
               email: FFaker::Internet.email,
               password: FFaker::Internet.password,
