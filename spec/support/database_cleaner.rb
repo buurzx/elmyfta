@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Check spec/support dir is auto-required in spec/rails_helper.rb.
 
 # IMPORTANT! Delete the "config.use_transactional_fixtures = ..." line

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module OmniauthSetup
   def setup_vk_user_with_email(email = 'qwe@wq.qw2')
     vk_user.tap { |u| u.info.merge!(email: email) }
