@@ -11,9 +11,23 @@ class ParserService
   end
 
   def parse_and_create
-    error!(I18n.t('parse_service.file.errors.empty')) && return if file.blank?
+    before_events
+    return if error
 
-    prod_ids = fetch_products.map! do |product|
+    prod_ids = handle_products
+    return unless prod_ids
+
+    destroy_old_products(prod_ids)
+  end
+
+  private
+
+  def before_events
+    error!(I18n.t('parse_service.file.errors.empty')) if file.blank?
+  end
+
+  def handle_products
+    fetch_products.map! do |product|
       updated_product = update_or_create_product(product)
       break unless updated_product
       # add to organization
@@ -21,11 +35,7 @@ class ParserService
       # add to array for further process
       updated_product.id
     end
-
-    destroy_old_products(prod_ids)
   end
-
-  private
 
   def destroy_old_products(prod_ids)
     organization.products.where.not(id: prod_ids).destroy_all
