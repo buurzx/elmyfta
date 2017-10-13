@@ -1,2 +1,2 @@
-### Elmyfta site [![CircleCI](https://circleci.com/gh/buurzx/elmyfta.svg?style=svg)](https://circleci.com/gh/buurzx/elmyfta)  [![Coverage Status](https://coveralls.io/repos/github/buurzx/elmyfta/badge.svg?branch=master)](https://coveralls.io/github/buurzx/elmyfta?branch=master)
+### Elmyfta site [![CircleCI](https://circleci.com/gh/buurzx/elmyfta.svg?style=svg)](https://circleci.com/gh/buurzx/elmyfta)  [![Coverage Status](https://coveralls.io/repos/github/buurzx/elmyfta/badge.svg?branch=master)](https://coveralls.io/github/buurzx/elmyfta?branch=master)  [![Maintainability](https://api.codeclimate.com/v1/badges/513c8916b652baaa5576/maintainability)](https://codeclimate.com/github/buurzx/elmyfta/maintainability)
 
