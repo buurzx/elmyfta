@@ -1,5 +1,3 @@
-# ru.activemodel.errors.models.organization.attributes.inn.too_short
-# ru.activemodel.errors.models.organization.attributes.inn.blank
 ru:
   will_paginate:
     previous_label: 'Предыдущая'
@@ -61,6 +59,11 @@ ru:
               invalid: 'недействителен'
   organization:
     inn_or_name: 'Проверьте пожалуйста ИНН и название Вашей организации'
+
+  parse_service:
+    file:
+      errors:
+        empty: 'Файл не может быть пустым'
 
   global_errors:
     service_error: "Произошла ошибка, мы уже о ней знаем и пытаемся исправить, приносим извинения за неудобства"
