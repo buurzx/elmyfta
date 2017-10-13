@@ -6,19 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 8
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'spec/factories/organizations.rb'
-    - 'spec/support/controller_macros.rb'
-    - 'spec/support/database_cleaner.rb'
-    - 'spec/support/devise.rb'
-    - 'spec/support/feature_helpers.rb'
-    - 'spec/support/omniauth_setup.rb'
-    - 'spec/support/request_spec_helper.rb'
-    - 'spec/support/share_db_connection.rb'
-
 # Offense count: 1
 Metrics/AbcSize:
   Max: 31
@@ -32,12 +19,6 @@ Metrics/BlockLength:
 Style/AsciiComments:
   Exclude:
     - 'app/services/organization_validation_service.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/BlockComments:
-  Exclude:
-    - 'spec/spec_helper.rb'
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, SupportedStyles.

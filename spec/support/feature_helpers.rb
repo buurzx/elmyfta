@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FeatureHelpers
   def login(user = create(:user))
     user.skip_confirmation!
