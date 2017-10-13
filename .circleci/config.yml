@@ -40,7 +40,7 @@ jobs:
       # Run rspec in parallel
       - type: shell
         command: |
-          bundle exec rspec
+          COVERALLS_REPO_TOKEN=znUhlAdaA86McuzNe6zCVvx2EoF9BEq0a bundle exec rspec
 
       # Save test results for timing analysis
       - store_test_results:

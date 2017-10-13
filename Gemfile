@@ -45,8 +45,10 @@ gem 'friendly_id'
 gem 'sitemap_generator'
 gem 'whenever', require: false
 
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'coveralls', require: false
   gem 'factory_girl_rails'
   gem 'mina'
   gem 'rspec-rails', '~> 3.5'
