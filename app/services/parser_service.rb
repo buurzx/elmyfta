@@ -3,7 +3,7 @@
 require 'rubyXL'
 
 class ParserService
-  attr_accessor :file, :error, :user
+  attr_reader :file, :error, :user
 
   def initialize(file:, user: nil)
     @file = file&.tempfile
@@ -51,10 +51,9 @@ class ParserService
   end
 
   def fetch_products
-    workbook = RubyXL::Parser.parse(file)
+    products  = []
+    workbook  = RubyXL::Parser.parse(file)
     worksheet = workbook[0]
-
-    products = []
 
     worksheet.each do |row|
       break unless row.cells.first.value

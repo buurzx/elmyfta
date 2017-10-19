@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   def page_not_found
     respond_to do |format|
       format.html do
+        # TODO: locale
         flash[:alert] = '404. Страница не найдена'
         redirect_to_back_or_to_root
       end
