@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.friendly.find_by(slug: params[:id])
     unless @product
+      # TODO: locale
       flash[:alert] =
         ['К сожалению, искомая позиция у производителя на данный момент отсутствует.',
          'Возможно она есть в наличии у других поставщиков.',
@@ -31,6 +32,7 @@ class ProductsController < ApplicationController
     session[:errors] = nil
 
     if service.error.blank?
+      # TODO: locale
       flash[:notice] = 'Подгрузка остатков прошла успешно'
       redirect_to current_user.organization if current_user
     else

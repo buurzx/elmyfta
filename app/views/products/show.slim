@@ -30,8 +30,8 @@
                   td.job_title
                     | Имя
                   td.filled
-                    = @org.contact_user.name
-                - if @org.contact_user.phone.present?
+                    = @org.contact_user&.name
+                - if @org.contact_user&.phone.present?
                   tr
                     td.job_title
                       | Телефон

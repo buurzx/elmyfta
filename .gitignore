@@ -19,8 +19,12 @@
 .byebug_history
 /public/packs
 /public/packs-test
+/public/certificates
+/public/catalogs
 /node_modules
 /coverage
 
 .env.docker.local
 tasks.task
+
+
