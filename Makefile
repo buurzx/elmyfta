@@ -1,7 +1,7 @@
 spec=spec
 
 rspec:
-	docker-compose run --rm web bundle exec rspec $(spec) --profile
+	docker-compose run --rm web bundle exec rspec $(spec)
 
 prepare: bundle create load migrate
 
